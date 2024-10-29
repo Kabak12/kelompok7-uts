@@ -1,7 +1,8 @@
-<!-- Nama anggota
+<!-- Nama anggota:
     1.Abdul Mubarok
     2.Ahmad yusuf
     3.Nabilatul fadliah -->
+
 <?php
 
 $barang = [
@@ -23,7 +24,7 @@ $transaksi = [
 ];
 
 $total_pembelian = 0;
-$diskon = 0.2; 
+$diskon = 0; 
 
 ?>
 
@@ -79,18 +80,30 @@ $diskon = 0.2;
         </tbody>
     </table>
 
+    <?php 
+
+    if ($total_pembelian >= 300000) {
+        $diskon = 0.20; 
+    } elseif ($total_pembelian >= 200000) {
+        $diskon = 0.10; 
+    }
+
+    $discountAmount = $total_pembelian * $diskon;
+    $finalTotal = $total_pembelian - $discountAmount;
+    ?>
+
     <table style="margin-top: 20px;">
         <tr>
             <td class="text-right total">Total Pembelian:</td>
             <td class="text-right">Rp <?php echo number_format($total_pembelian, 0, ',', '.'); ?></td>
         </tr>
         <tr>
-            <td class="text-right diskon">Diskon 20%:</td>
-            <td class="text-right">Rp <?php echo number_format($total_pembelian * $diskon, 0, ',', '.'); ?></td>
+            <td class="text-right diskon">Diskon <?php echo $diskon * 100; ?>%:</td>
+            <td class="text-right">Rp <?php echo number_format($discountAmount, 0, ',', '.'); ?></td>
         </tr>
         <tr>
             <td class="text-right bayar">Total Pembayaran:</td>
-            <td class="text-right">Rp <?php echo number_format($total_pembelian * (1 - $diskon), 0, ',', '.'); ?></td>
+            <td class="text-right">Rp <?php echo number_format($finalTotal, 0, ',', '.'); ?></td>
         </tr>
     </table>
 
